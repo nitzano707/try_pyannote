@@ -5,8 +5,10 @@ exports.handler = async (event, context) => {
   const apiUrl = "https://api-inference.huggingface.co/models/pyannote/speaker-diarization";
 
   try {
+    // Decode Base64 audio data
     const audioBuffer = Buffer.from(event.body, "base64");
 
+    // Send the audio to Hugging Face API
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
@@ -16,6 +18,7 @@ exports.handler = async (event, context) => {
       body: audioBuffer,
     });
 
+    // Check for errors
     if (!response.ok) {
       const errorDetails = await response.text();
       return {
@@ -24,6 +27,7 @@ exports.handler = async (event, context) => {
       };
     }
 
+    // Parse and return result
     const result = await response.json();
     return {
       statusCode: 200,
