@@ -30,6 +30,7 @@
             resultElement.textContent = "Processing...";
 
             try {
+                // Read file as Base64
                 const reader = new FileReader();
                 reader.onload = async (e) => {
                     const base64Data = e.target.result.split(",")[1]; // Remove Base64 header
