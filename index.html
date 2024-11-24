@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Speaker Diarization</title>
-    <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg-core.js"></script>
 </head>
 <body>
     <h1>Speaker Diarization</h1>
@@ -17,7 +17,10 @@
 
     <script>
         const { createFFmpeg, fetchFile } = FFmpeg;
-        const ffmpeg = createFFmpeg({ log: true });
+        const ffmpeg = createFFmpeg({
+            log: true,
+            corePath: "https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg-core.js",
+        });
 
         document.getElementById("audioUploadForm").addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -36,7 +39,7 @@
             try {
                 let binaryData;
 
-                // Load ffmpeg.js if not already loaded
+                // Load ffmpeg-core.js if not already loaded
                 if (!ffmpeg.isLoaded()) {
                     await ffmpeg.load();
                 }
